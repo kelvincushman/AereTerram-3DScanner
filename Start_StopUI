@@ -1,0 +1,68 @@
+
+#Test script for the lidar to record and stop via touch screen UI
+
+import roslib
+import rospy
+from velodyne_driver import velodyne_driver
+
+import pygame
+import sys
+
+import RPi.GPIO as GPIO
+import time
+
+# Initialize pygame
+pygame.init()
+
+# Set the display size
+display_size = (320, 240)
+
+# Create the display surface
+screen = pygame.display.set_mode(display_size)
+
+# Set the title of the window
+pygame.display.set_caption('Velodyne Lidar')
+
+# Set the font for the menu
+font = pygame.font.Font(None, 32)
+
+# Set the colors for the menu
+black = (0, 0, 0)
+white = (255, 255, 255)
+
+# Set the pin mode to BCM (Broadcom pin numbering) and disable the warning messages
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+# Define the pin numbers for the stepper motor control pins
+step_pin = 18
+dir_pin = 23
+enable_pin = 24
+
+# Set the pins as output pins
+GPIO.setup(step_pin, GPIO.OUT)
+GPIO.setup(dir_pin, GPIO.OUT)
+GPIO.setup(enable_pin, GPIO.OUT)
+
+# Initialize the Velodyne driver
+rospy.init_node('velodyne_node')
+driver = velodyne_driver.VelodyneDriver()
+
+# Initialize the recording flag
+recording = False
+
+# Run the main loop
+while True:
+    # Draw the menu
+    screen.fill(black)
+    text_surface = font.render('Velodyne Lidar', True, white)
+    screen.blit(text_surface, (100, 50))
+    if recording:
+        text_surface = font.render('Stop Recording', True, white)
+    else:
+        text_surface = font.render('Start Recording', True, white)
+    screen.blit(text_surface, (100, 100))
+    text_surface = font.render('Start Recording and 180 Degree Scan', True, white)
+    screen.blit(text_surface, (100, 150))
+    text_surface = font.render('Start Recording and 360 Degree Scan', True, white)
+    screen.blit(text_surface, (100, 200))
