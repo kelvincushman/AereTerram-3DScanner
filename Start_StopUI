@@ -66,3 +66,20 @@ while True:
     screen.blit(text_surface, (100, 150))
     text_surface = font.render('Start Recording and 360 Degree Scan', True, white)
     screen.blit(text_surface, (100, 200))
+
+
+#Add a line to the script that displays the current status of the recording flag. This will help you confirm that the flag is being set correctly when the "Start Recording" button is pressed.
+
+#print('Recording:', recording)
+#Run the script and press the "Start Recording" button. You should see the value of the recording flag change from False to True in the console output.
+
+#After you have confirmed that the recording flag is being set correctly, you can add a line of code to stop the recording when the "Stop Recording" button is pressed.
+
+#driver.stop_recording()
+#Run the script again and press the "Start Recording" and "Stop Recording" buttons to confirm that the script is able to start and stop the recording correctly.
+
+#Once you have confirmed that the script is able to start and stop the recording correctly, you can add the code to control the stepper motor and perform a 180 or 360 degree scan.
+
+
+
+
