@@ -1,0 +1,69 @@
+#include <Wire.h>
+#include <Adafruit_SSD1306.h>
+#include <Stepper.h>
+
+// OLED display
+#define OLED_ADDRESS 0x3C // OLED I2C address
+Adafruit_SSD1306 display(OLED_ADDRESS);
+
+// buttons
+const int pan360s = A0;
+const int pan360f = A1;
+const int pan180s = A2;
+const int KILL = 2;
+
+// stepper motor
+const int MOTOR_EN_PIN = 6;
+const int MOTOR_STEP_PIN = 5;
+const int MOTOR_DIRECTION_PIN = 3;
+const int stepsPerRevolution = 400;
+Stepper stepper(stepsPerRevolution, MOTOR_STEP_PIN, MOTOR_DIRECTION_PIN);
+
+// record signals
+const int RECORDSTART = A4;
+const int RECORDSTOP = A3;
+
+// variables
+bool buttonS360pressed = false;
+bool buttonF360pressed = false;
+bool buttonS180pressed = false;
+
+void setup() {
+  // initialize OLED display
+  display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS);
+  display.clearDisplay();
+  display.display();
+
+  // initialize buttons
+  pinMode(pan360s, INPUT_PULLUP);
+  pinMode(pan360f, INPUT_PULLUP);
+  pinMode(pan180s, INPUT_PULLUP);
+  pinMode(KILL, INPUT_PULLUP);
+
+  // initialize stepper
+  stepper.setSpeed(60);
+  pinMode(MOTOR_EN_PIN, OUTPUT);
+
+  // initialize record signals
+  pinMode(RECORDSTART, OUTPUT);
+  pinMode(RECORDSTOP, OUTPUT);
+}
+
+void loop() {
+  // check button states
+  if (digitalRead(pan360s) == LOW) {
+    // code to start 360 degree scan at 2 deg/sec
+  }
+  if (digitalRead(pan360f) == LOW) {
+    // code to start 360 degree scan at 1 deg/sec
+  }
+  if (digitalRead(pan180s) == LOW) {
+    // code to start 180 degree scan at 1 deg/sec
+  }
+  if (digitalRead(KILL) == LOW) {
+    // code to stop and reset scan
+  }
+
+  // update OLED display
+  // code to display scan status, settings, etc. on OLED display
+}
